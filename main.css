@@ -34,3 +34,7 @@ main {
 
   border: solid 1px grey;
 }
+
+.cell--border-on {
+  border: solid 1px rgb(122, 153, 255);
+}
