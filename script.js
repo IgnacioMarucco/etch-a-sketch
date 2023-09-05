@@ -2,6 +2,7 @@
 
 // Global Variable
 let gridSize = 16;
+let rainbowMode = false;
 
 // Function Create Grid
 function createGrid(size) {
@@ -40,9 +41,29 @@ function clearGrid() {
 // Function Change Color
 function paint(e) {
   if (isMouseDown) {
-    let color = gridColorChoiceButton.value;
+    let color = rainbowMode ? getRandomColor() : gridColorChoiceButton.value;
     e.target.style.background = `${color}`;
   }   
+}
+
+// Function Rainbow Mode Toggle
+function rainbowModeToggle() {
+  if (rainbowMode) {
+    rainbowMode = false;
+    rainbowModeButton.textContent = 'Rainbow Mode Off';
+  } else {
+    rainbowMode = true;
+    rainbowModeButton.textContent = 'Rainbow Mode On';
+  }
+}
+
+// Function Get Random Color
+function getRandomColor() {
+  const randomR = Math.floor(Math.random() * 256);
+  const randomG = Math.floor(Math.random() * 256);
+  const randomB = Math.floor(Math.random() * 256);
+
+  return `rgb(${randomR},${randomG},${randomB})`;
 }
 
 // Function Eraser Mode
@@ -79,6 +100,9 @@ const showGridButton = document.querySelector('.show-grid');
 showGridButton.addEventListener('click', showGridBorders);
 
 const gridColorChoiceButton = document.querySelector('input[type="color"]');
+
+const rainbowModeButton = document.querySelector('.rainbow-mode');
+rainbowModeButton.addEventListener('click', rainbowModeToggle);
 
 const eraserButton = document.querySelector('.eraser');
 eraserButton.addEventListener('click', eraserMode);
