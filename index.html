@@ -4,10 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Etch a Sketch</title>
-
+  <link rel="stylesheet" href="main.css">
   <script src="script.js" defer></script>
 </head>
 <body>
-  
+  <header><h1>Etch a Sketch</h1></header>
+  <main>
+    <section class="options">
+      <label for="size">Grid Size: 16 * 16 (Min = 4 ; Max = 100)</label>
+      <input class="change-size" type="range" name="size" min="4" max="100" value="16" class="slider">
+      <input class="change-size" type="number" placeholder="Or type here.">
+      <div>
+        <label for="color">Color:</label>
+        <input type="color" name="color" value="#000000" />
+      </div>
+      <button class="eraser">Eraser</button>
+      <button class="clear-grid-button">Clear</button>
+    </section>
+    <section class="container-grid">
+    </section>
+  </main>
 </body>
 </html>
