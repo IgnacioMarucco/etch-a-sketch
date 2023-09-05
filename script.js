@@ -1,30 +1,7 @@
 "use strict";
 
-const containerGrid = document.querySelector('.container-grid');
-
-const gridSizeLabel = document.querySelector('label[for="size"]');
-const gridSizeSlider = document.querySelector('input[type="range"]');
-gridSizeSlider.addEventListener('change', changeSize);
-
-const gridSizeEntry = document.querySelector('input[type="number"]');
-gridSizeEntry.addEventListener('change', changeSize);
-
-const showGridButton = document.querySelector('.show-grid');
-showGridButton.addEventListener('click', showGridBorders);
-
-// const gridSizeChangers = document.querySelectorAll('.change-size');
-// gridSizeChangers.forEach((element) => element.addEventListener('change', changeSize));
-
-const clearGridButton = document.querySelector('.clear-grid-button');
-clearGridButton.addEventListener('click', () => {
-  clearGrid();
-  createGrid(+gridSizeSlider.value);
-}); 
-
-const gridColorChoiceButton = document.querySelector('input[type="color"]');
-
-const eraserButton = document.querySelector('.eraser');
-eraserButton.addEventListener('click', eraserMode);
+// Global Variable
+let gridSize = 16;
 
 // Function Create Grid
 function createGrid(size) {
@@ -46,13 +23,13 @@ function createGrid(size) {
 
 // Function Change Grid Size 
 function changeSize(e) {
-  let size = +e.target.value;
-  if (size > 100 || size < 4) {
+  gridSize = +e.target.value;
+  if (gridSize > 100 || gridSize < 4) {
     return;
   }
   clearGrid();
-  gridSizeLabel.textContent = `Grid Size: ${size} * ${size} (Min = 4 ; Max = 100)`;
-  createGrid(size)
+  gridSizeLabel.textContent = `Grid Size: ${gridSize} * ${gridSize} (Min = 4 ; Max = 100)`;
+  createGrid(gridSize);
 }
 
 // Function Clear Grid
@@ -79,9 +56,32 @@ function showGridBorders() {
   cells.forEach((cell) => cell.classList.toggle('cell--border-on'));
 }
 
-createGrid(+gridSizeSlider.value);
-
-// 
+// Check if mouse is down
 let isMouseDown = false;
 document.addEventListener('mousedown', () => isMouseDown = true);
 document.addEventListener('mouseup', () => isMouseDown = false);
+
+// DOM
+const containerGrid = document.querySelector('.container-grid');
+
+const gridSizeLabel = document.querySelector('label[for="size"]');
+
+const gridSizeChangers = document.querySelectorAll('.change-size');
+gridSizeChangers.forEach((element) => element.addEventListener('change', changeSize));
+
+const clearGridButton = document.querySelector('.clear-grid-button');
+clearGridButton.addEventListener('click', () => {
+  clearGrid();
+  createGrid(gridSize);
+}); 
+
+const showGridButton = document.querySelector('.show-grid');
+showGridButton.addEventListener('click', showGridBorders);
+
+const gridColorChoiceButton = document.querySelector('input[type="color"]');
+
+const eraserButton = document.querySelector('.eraser');
+eraserButton.addEventListener('click', eraserMode);
+
+// On Load
+window.onload = () => createGrid(gridSize);
